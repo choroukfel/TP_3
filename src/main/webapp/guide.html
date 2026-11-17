@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Touristique</title>
+</head>
+<body>
+
+<h1>Guide Touristique</h1>
+
+<label for="countryInput">Entrez le nom d'un pays ou d'une ville :</label>
+<input type="text" id="countryInput" placeholder="Entrez un lieu">
+
+<button onclick="getTouristInfo()">Obtenir les informations</button>
+
+<div id="result"></div>
+
+<script>
+    function getTouristInfo() {
+        // Récupérer le nom du lieu
+        var pays = document.getElementById("countryInput").value.trim();
+
+        // Vérifier si le champ est vide
+        if (pays === "") {
+            alert("Veuillez entrer le nom d'un pays ou d'une ville.");
+            return;
+        }
+
+        // Créer un objet XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Configurer la requête REST
+        xhr.open(
+            "GET",
+            "api/guide/lieu/" + encodeURIComponent(pays),
+            true
+        );
+
+        // Traiter la réponse
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+
+                        var result = document.getElementById("result");
+                        result.textContent = "";
+
+                        var titre = document.createElement("h2");
+                        titre.textContent =
+                            "Informations sur " + data.ville_ou_pays;
+
+                        var endroits = document.createElement("p");
+                        endroits.textContent =
+                            "Endroits à visiter : " +
+                            data.endroits_a_visiter.join(", ");
+
+                        var prix = document.createElement("p");
+                        prix.textContent =
+                            "Prix moyen d'un repas : " +
+                            data.prix_moyen_repas;
+
+                        result.append(titre, endroits, prix);
+                    } catch (e) {
+                        document.getElementById("result").textContent =
+                            "Réponse JSON invalide.";
+                    }
+                } else {
+                    document.getElementById("result").textContent =
+                        "Erreur lors de la récupération des informations : " +
+                        xhr.status;
+                }
+            }
+        };
+
+        // Envoyer la requête
+        xhr.send();
+    }
+</script>
+
+</body>
+</html>
