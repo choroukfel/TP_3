@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import ma.emsi.chorouk.tp3_chorouk.llm.LlmClient;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.DefaultValue;
+import ma.emsi.chorouk.tp3_chorouk.llm.InformationsTouristiques;
 
 @Path("/guide")
 
@@ -18,7 +19,7 @@ public class GuideTouristiqueResource {
     @GET
     @Path("lieu/{ville_ou_pays}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String endroitsDeVisite(
+    public  InformationsTouristiques endroitsDeVisite(
             @PathParam("ville_ou_pays") String villeOuPays,
             @QueryParam("nb") @DefaultValue("2") int nb) {
 

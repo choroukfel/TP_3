@@ -17,5 +17,5 @@ public interface GuideTouristique {
           "prix_moyen_repas": "<prix> <devise du pays>"
         }
         """)
-    String chat(String question);
+    InformationsTouristiques chat(String question);
 }

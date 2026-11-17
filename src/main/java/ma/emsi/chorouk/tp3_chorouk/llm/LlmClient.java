@@ -51,7 +51,7 @@ public class LlmClient implements Serializable {
     /**
      * Envoie une question au LLM et retourne sa réponse.
      */
-    public String envoyerQuestion(String question) {
+    public InformationsTouristiques envoyerQuestion(String question) {
 
         if (assistant == null) {
             initialiserAssistant();
