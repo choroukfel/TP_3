@@ -5,7 +5,7 @@ import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.google.genai.GoogleGenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import jakarta.enterprise.context.Dependent;
-
+import dev.langchain4j.service.Result;
 import java.io.Serializable;
 
 @Dependent
@@ -51,7 +51,7 @@ public class LlmClient implements Serializable {
     /**
      * Envoie une question au LLM et retourne sa réponse.
      */
-    public InformationsTouristiques envoyerQuestion(String question) {
+    public Result<InformationsTouristiques> envoyerQuestion(String question) {
 
         if (assistant == null) {
             initialiserAssistant();

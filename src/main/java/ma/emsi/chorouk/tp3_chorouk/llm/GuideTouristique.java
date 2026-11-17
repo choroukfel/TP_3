@@ -1,6 +1,7 @@
 package ma.emsi.chorouk.tp3_chorouk.llm;
 
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.Result;
 
 public interface GuideTouristique {
 
@@ -17,5 +18,5 @@ public interface GuideTouristique {
           "prix_moyen_repas": "<prix> <devise du pays>"
         }
         """)
-    InformationsTouristiques chat(String question);
+    Result<InformationsTouristiques> chat(String question);
 }
